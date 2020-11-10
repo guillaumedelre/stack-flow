@@ -4,12 +4,37 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    team:
+        BRO:
+            color: green
+            gitlabId: 219
+        GDE:
+            color: blue
+            gitlabId: 70
+        JMO:
+            color: red
+            gitlabId: 233
+        MJO:
+            color: yellow
+            gitlabId: 245
 
 services:
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        bind:
+            $gitlabSecret: "%env(resolve:GITLAB_SECRET)%"
+            $gitlabUrl: "%env(resolve:GITLAB_URL)%"
+            $teamConfiguration: "%team%"
+
+    _instanceof:
+        Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface:
+            calls:
+                - ['setDenormalizer', ['@serializer']]
+        Symfony\Component\Serializer\SerializerAwareInterface:
+            calls:
+                - ['setSerializer', ['@serializer']]
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -19,6 +44,7 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+            - '../src/Model/'
             - '../src/Tests/'
 
     # controllers are imported separately to make sure services can be injected

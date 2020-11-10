@@ -11,8 +11,10 @@ RESET 		 := $(shell tput -Txterm sgr0)
 
 DOCKER_COMPOSE  = docker-compose
 EXEC_PHP        = $(DOCKER_COMPOSE) exec php
+EXEC_NODE       = $(DOCKER_COMPOSE) exec node
 SYMFONY         = $(EXEC_PHP) bin/console
 COMPOSER        = $(EXEC_PHP) composer
+YARN            = $(EXEC_NODE) yarn
 
 ##
 ## Docker
@@ -38,6 +40,23 @@ dcps: ## List the docker composition services
 	$(DOCKER_COMPOSE) ps
 
 .PHONY: dcd dcb dcup dcps
+
+##
+## Stack
+## -------
+##
+
+setup: ## Setup the project
+	@echo "${PURPLE}Setting up the project${RESET}\n"
+	$(SYMFONY) doctrine:migrations:migrate --no-interaction
+	$(COMPOSER) install
+	$(YARN) install
+
+watch: ## Start webpack
+	@echo "${PURPLE}Starting webpack${RESET}\n"
+	$(YARN) encore dev --watch
+
+.PHONY: setup watch
 
 .DEFAULT_GOAL := help
 help:

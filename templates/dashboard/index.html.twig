@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block body %}
+    <div id="app"></div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        window.AppConfig = {
+            fontAwesomeStyle: '{{ fa }}',
+            developers: JSON.parse('{{ developers|raw }}'),
+            fetch: '{{ api_merge_request_base_uri }}.jsonld',
+            mercure: {
+                updateTopic: '{{ updateTopic|raw }}',
+                deleteTopic: '{{ deleteTopic|raw }}',
+                url: 'http://127.0.0.1:1337/.well-known/mercure'
+            },
+            logoUrl: '{{ asset('img/mezzo-light.svg') }}',
+            dashboardUrl: '{{ url('dashboard') }}',
+        }
+    </script>
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}

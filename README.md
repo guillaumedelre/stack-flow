@@ -1,34 +1,43 @@
-# Symfony Docker
+# Stack Flow
 
-A [Docker](https://www.docker.com/)-based installer and runtime for the [Symfony](https://symfony.com) web framework, with full [HTTP/2](https://symfony.com/doc/current/weblink.html) and HTTPS support.
+## Getting start
 
-![CI](https://github.com/dunglas/symfony-docker/workflows/CI/badge.svg)
+A symfony dashboard application revealing the mezzo team gitlab state.
 
-## Getting Started
+The purpose is to experiment latest `Mercure` and `HTTP3` protocols.
 
-1. If not already done, [install Docker Compose](https://docs.docker.com/compose/install/)
-2. Run `docker-compose up` (the logs will be displayed in the current shell)
-3. Open `https://localhost` in your favorite web browser and [accept the auto-generated TLS certificate](https://stackoverflow.com/a/15076602/1352334)
+### First install ?
 
-## Features
+`make dcb`
 
-* Production, development and CI ready
-* Automatic HTTPS (in dev and in prod!)
-* HTTP/2, HTTP/3 and [Server Push](https://symfony.com/doc/current/web_link.html) support
-* [Vulcain](https://vulcain.rocks)-enabled
-* Just 2 services (PHP FPM and Caddy server)
-* Super-readable configuration
+### Setup symfony app
 
-**Enjoy!**
+`make setup`
 
-## Docs
+### Run webpack
 
-1. [Build options](docs/build.md)
-2. [Support for extra services](docs/extra-services.md)
-3. [Deploying in production](docs/production.md)
-4. [Installing Xdebug](docs/xdebug.md)
-5. [Troubleshooting](docs/troubleshooting.md)
+`make watch`
 
-## Credits
+## Makefile
 
-Created by [Kévin Dunglas](https://dunglas.fr), co-maintained by [Maxime Helias](https://twitter.com/maxhelias) and sponsored by [Les-Tilleuls.coop](https://les-tilleuls.coop).
+`make dcb` when you need to build your docker image
+
+`make dcup` when you need to start the composition
+
+`make dcd` when you want to stop your composition and clean services
+
+`make dcps` when you need to list the state of your container
+
+`make setup` build the app
+
+`make watch` Run webpack
+
+## Todo
+
+Handles element creation with List vue component
+ 
+Make some tests
+
+## Reference
+
+Made with [Symfony Docker](https://github.com/dunglas/symfony-docker).

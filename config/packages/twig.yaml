@@ -1,0 +1,8 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    globals:
+        fa: far
+        fa_solid: fas
+        fa_regular: far
+        fa_light: fal
+        fa_duotone: fad

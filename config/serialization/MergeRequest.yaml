@@ -1,0 +1,56 @@
+App\Entity\MergeRequest:
+    attributes:
+        id:
+            groups:
+                - 'merge_request:get'
+        gitlabId:
+            groups:
+                - 'merge_request:get'
+        gitlabInternalId:
+            groups:
+                - 'merge_request:get'
+        redmineId:
+            groups:
+                - 'merge_request:get'
+        title:
+            groups:
+                - 'merge_request:get'
+        sourceBranch:
+            groups:
+                - 'merge_request:get'
+        targetBranch:
+            groups:
+                - 'merge_request:get'
+        upvotes:
+            groups:
+                - 'merge_request:get'
+        downvotes:
+            groups:
+                - 'merge_request:get'
+        author:
+            groups:
+                - 'merge_request:get'
+        hasConflicts:
+            groups:
+                - 'merge_request:get'
+        unresolvedBlockingDiscussions:
+            groups:
+                - 'merge_request:get'
+        blockingDiscussionsResolved:
+            groups:
+                - 'merge_request:get'
+        doNotMergeBitch:
+            groups:
+                - 'merge_request:get'
+        complexity:
+            groups:
+                - 'merge_request:get'
+        pipeline:
+            groups:
+                - 'merge_request:get'
+        createdAt:
+            groups:
+                - 'merge_request:get'
+        updatedAt:
+            groups:
+                - 'merge_request:get'
