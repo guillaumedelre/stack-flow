@@ -32,11 +32,22 @@ The purpose is to experiment latest `Mercure` and `HTTP3` protocols.
 
 `make watch` Run webpack
 
-## Todo
+## Supervisor
 
-Handles element creation with List vue component
- 
-Make some tests
+```
+[program:flow-update]
+user=gdelre
+directory=/home/gdelre/sources/stack/flow/
+command=docker-compose exec -T php bin/console flow:update -vvv
+numprocs=1
+startsecs=1
+autorestart=true
+autostart=true
+logfile = /tmp/program:flow-update.log
+stderr_logfile=/tmp/program:flow-update.err.log
+stdout_logfile=/tmp/program:flow-update.out.log
+process_name=%(program_name)s_%(process_num)02d
+```
 
 ## Reference
 

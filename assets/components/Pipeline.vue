@@ -1,7 +1,6 @@
 <template>
     <div>
-        <i :class="[fontAwesomeStyle, icon, 'mr-2']" data-toggle="tooltip"
-           data-placement="top" title="Last build status"></i>
+        <i :class="[fontAwesomeStyle, icon, 'mr-2']" v-b-tooltip.hover.top title="Last build status"></i>
         {{ status }}
     </div>
 </template>

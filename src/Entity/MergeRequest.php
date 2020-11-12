@@ -300,7 +300,7 @@ class MergeRequest
 
     public function getProgress(): int
     {
-        return (count($this->upvotes) + ((int) !$this->hasConflicts) + ((bool) 'success' === $this->pipeline['status'] ?? null)) * 20;
+        return (count($this->upvotes) + ((int) !$this->hasConflicts) + ((bool) 'success' === ($this->pipeline['status'] ?? null))) * 20;
     }
 
     public function isDoNotMergeBitch(): bool

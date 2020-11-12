@@ -1,6 +1,6 @@
 <template>
     <div class="col text-muted lead">
-        <b-avatar variant="dark" v-b-tooltip.hover.top :title="author.name" :src="author.avatar_url"></b-avatar>
+        <b-avatar variant="dark" v-b-tooltip.hover.right :title="author.name" :src="author.avatar_url"></b-avatar>
         <span class="align-middle mx-2">{{ redmineId ? '#' + redmineId : sourceBranch}}</span>
         <span v-if="doNotMergeBitch"
               v-b-tooltip.hover.right
