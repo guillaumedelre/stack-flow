@@ -5,6 +5,7 @@
             v-for="mergeRequest in mergeRequests"
             :key="mergeRequest.id"
             :merge-request="mergeRequest"
+            class="mt-2"
         />
     </div>
 </template>
@@ -47,10 +48,12 @@ export default {
             }
         },
         remove (collection) {
-            for (let i=0; i<collection['orphans'].length; i++) {
-                if (this.mergeRequests[i].gitlabId === collection['orphans'][i]) {
-                    this.mergeRequests.$remove(collection['orphans'][i])
-                }
+            for (let i = 0; i < collection['orphans'].length; i++ ) {
+                this.mergeRequests.forEach((mergeRequest, index) => {
+                    if (collection['orphans'][i] === mergeRequest.gitlabId) {
+                        this.mergeRequests.splice(index, 1);
+                    }
+                })
             }
         },
     }

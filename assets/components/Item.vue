@@ -21,10 +21,10 @@
             <div class="col">
                 <MergeRequestProgress
                     :progress="progress"
-                    :css-background-color="'bg-' + mergeRequest.author.username"
+                    :css-background-color="cssBackgroundColor"
                 />
             </div>
-            <div style="position:absolute" class="container-fluid mt-2 text-light text-center">
+            <div style="position:absolute; max-width: 99%;" class="container-fluid mt-2 text-light text-center">
                 <div class="row">
                     <div v-for="reviewer in reviewers()" class="col">
                         <MergeRequestReview
@@ -84,6 +84,15 @@ export default {
         }
     },
     computed: {
+        cssBackgroundColor() {
+
+            let isTeamMember = window.AppConfig.developers.filter((developer) => {
+                return developer.data.username === this.mergeRequest.author.username
+            }).length
+            return isTeamMember
+                ? 'bg-' + this.mergeRequest.author.username
+                : 'bg-dark'
+        },
         doNotMergeBitchCss() {
             return this.mergeRequest.doNotMergeBitch ? 'dnmb' : ''
         },
