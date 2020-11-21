@@ -21,7 +21,7 @@ class TeamManager implements LoggerAwareInterface
     {
         $mergeRequests = $this->gitlabClient->getOpened();
         foreach ($mergeRequests as &$mergeRequest) {
-            $mergeRequest['complexity'] = null;
+            $mergeRequest['complexity'] = 0;
             $mergeRequest['unresolved_blocking_discussions'] = 0;
             foreach ($this->gitlabClient->getNotes($mergeRequest['iid']) as $note) {
                 if (!$note['resolvable'] || $note['resolved']) {
@@ -62,7 +62,7 @@ class TeamManager implements LoggerAwareInterface
                         if (28 !== $customField['id']) {
                             continue;
                         }
-                        $mergeRequest['complexity'] = (int) $customField['value'];
+                        $mergeRequest['complexity'] = (int)$customField['value'];
                         break;
                     }
                 }

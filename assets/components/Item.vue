@@ -85,7 +85,6 @@ export default {
     },
     computed: {
         cssBackgroundColor() {
-
             let isTeamMember = window.AppConfig.developers.filter((developer) => {
                 return developer.data.username === this.mergeRequest.author.username
             }).length

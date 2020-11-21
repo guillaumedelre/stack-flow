@@ -18,6 +18,7 @@ services:
             SYMFONY_VERSION:
         extra_hosts:
             - "git.fmm.adm.fr.clara.net:10.7.161.17"
+            - "devnvm.francemm.priv:172.25.0.180"
 
     caddy:
         build:

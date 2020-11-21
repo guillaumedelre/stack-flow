@@ -2,12 +2,17 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 
 * {
-    font-family: 'Muli';
+    font-family: 'Muli', sans-serif;
 }
 
 body {
     margin-top: 60px;
     margin-bottom: 60px;
+}
+
+iframe #chart_title, iframe #chart_title * {
+    font-size: 12px!important;
+    font-family: 'Muli', sans-serif!important;
 }
 
 .dnmb {
