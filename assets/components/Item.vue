@@ -130,6 +130,7 @@ export default {
                     break;
                 case 'pending':
                 case 'preparing':
+                case undefined:
                 case 'waiting_for_resource':
                     icon = 'fa-spin fa-spinner-third';
                     break;

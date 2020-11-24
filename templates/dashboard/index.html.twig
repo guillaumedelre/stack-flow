@@ -22,7 +22,10 @@
             },
             logoUrl: '{{ asset('img/mezzo-light.svg') }}',
             dashboardUrl: '{{ url('dashboard') }}',
-            burndownUrl: '{{ url('burndown') }}',
+            burndown: {
+                currentSprint: '{{ burndown.currentSprint }}',
+                url: '{{ url('burndown') }}',
+            },
         }
     </script>
     {{ encore_entry_script_tags('app') }}

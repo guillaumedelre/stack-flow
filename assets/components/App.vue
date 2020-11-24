@@ -8,36 +8,35 @@
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
             <b-collapse id="nav-collapse" is-nav>
                 <b-navbar-nav>
-                    <b-nav-item v-b-modal.modal-monitor href="#">
+                    <b-nav-text
+                        v-b-tooltip.hover.bottom
+                        title="Current sprint">
+                        {{ currentSprint }}
+                    </b-nav-text>
+                    <b-nav-item v-b-modal.modal-monitor href="#"
+                                v-b-tooltip.hover.bottom
+                                title="Burndown chart">
                         <i :class="[fa, 'fa-monitor-heart-rate']"></i>
                     </b-nav-item>
                 </b-navbar-nav>
             </b-collapse>
 
             <b-navbar-nav class="col-6 ml-auto">
-                <b-nav-text
-                    class="text-light mr-2"
-                    v-b-tooltip.hover.bottom
-                    title="Engaged points">
-                    {{ engagedPoints }}
-                </b-nav-text>
-                <b-nav-text><i :class="[fa, 'fa-chart-pie mr-2']"></i></b-nav-text>
                 <b-nav-text style="width:100%">
                     <b-progress
                         show-progress
                         v-b-tooltip.hover.bottom
-                        title="Distribution"
+                        :title="engagedPoints + ' point(s) distribution'"
                         max="100"
                         class="mr-2"
                         height="2rem">
                         <b-progress-bar
-                            v-for="developer in developers"
-                            :key="developer.code"
-                            :value="distribution[developer.data.username]"
-                            :class="'bg-' + developer.data.username"
+                            v-for="progress in distribution"
+                            :value="progress.points"
+                            :class="'bg-' + progress.username"
                             :max="engagedPoints"
                         >
-                            {{ developer.code }} ({{ distribution[developer.data.username] }})
+                            {{ progress.username }} ({{ progress.points }})
                         </b-progress-bar>
                     </b-progress>
                 </b-nav-text>
@@ -68,10 +67,8 @@
                         @load="load"
                         v-show="iframe.loaded"
                         :src="iframe.src">
-
                 </iframe>
             </div>
-
         </b-modal>
     </div>
 </template>
@@ -86,24 +83,35 @@ export default {
     data () {
         return {
             iframe: {
-                src: window.AppConfig.burndownUrl,
+                src: window.AppConfig.burndown.url,
                 loaded: false
             },
             engagedPoints: 0,
-            distribution: {}
+            currentSprint: window.AppConfig.burndown.currentSprint,
+            distribution: []
         }
     },
     mounted() {
         this.$nextTick(() => {
             this.developers.forEach((developer) => {
-                this.distribution[developer.data.username] = 0
+                this.distribution.push({
+                    username: developer.data.username,
+                    points: 0,
+                })
             })
             this.engagedPoints = 0
             for (let i = 0; i < this.$refs.mergeRequestList.$refs.mergeRequestItem.length; i++) {
                 let complexity = this.$refs.mergeRequestList.$refs.mergeRequestItem[i].mergeRequest.complexity
                 let dev = this.$refs.mergeRequestList.$refs.mergeRequestItem[i].mergeRequest.author.username
                 this.engagedPoints += complexity
-                this.distribution[dev] += complexity
+                // if developer is part of the team
+                // and
+                // if developer is the author of the merge-request
+                this.distribution.forEach((dist, index) => {
+                    if (dist.username === dev) {
+                        this.distribution[index].points += complexity
+                    }
+                })
             }
         })
     },
